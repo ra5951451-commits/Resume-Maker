@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Resume — {{ e(name) }}</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/template1.css') }}">
+</head>
+
+<body>
+
+<!-- Template Switch -->
+<div class="template-scroll">
+  <div class="template-track" id="track">
+
+    <!-- SET 1 -->
+    <a href="{{ url_for('template2') }}"><div class="template-thumb t2"></div></a>
+    <a href="{{ url_for('template3') }}"><div class="template-thumb t3"></div></a>
+    <a href="{{ url_for('template4') }}"><div class="template-thumb t4"></div></a>
+    <a href="{{ url_for('template5') }}"><div class="template-thumb t5"></div></a>
+    <a href="{{ url_for('template6') }}"><div class="template-thumb t6"></div></a>
+    <a href="{{ url_for('template7') }}"><div class="template-thumb t7"></div></a>
+    <a href="{{ url_for('template8') }}"><div class="template-thumb t8"></div></a>
+
+    <!-- DUPLICATE SET (required) -->
+    <a href="{{ url_for('template2') }}"><div class="template-thumb t2"></div></a>
+    <a href="{{ url_for('template3') }}"><div class="template-thumb t3"></div></a>
+    <a href="{{ url_for('template4') }}"><div class="template-thumb t4"></div></a>
+    <a href="{{ url_for('template5') }}"><div class="template-thumb t5"></div></a>
+    <a href="{{ url_for('template6') }}"><div class="template-thumb t6"></div></a>
+    <a href="{{ url_for('template7') }}"><div class="template-thumb t7"></div></a>
+    <a href="{{ url_for('template8') }}"><div class="template-thumb t8"></div></a>
+
+  </div>
+</div>
+
+</div>
+<script>
+  const track = document.getElementById('track');
+  let y = 0;
+  let speed = 0.4; // auto scroll speed
+  let manualBoost = 0;
+
+  function animate() {
+    y -= speed + manualBoost;
+
+    // infinite reset
+    if (Math.abs(y) >= track.scrollHeight / 2) {
+      y = 0;
+    }
+
+    track.style.transform = `translateY(${y}px)`;
+
+    // slowly return to auto speed
+    manualBoost *= 0.9;
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  // Mouse wheel control
+  document.querySelector('.template-scroll').addEventListener('wheel', e => {
+    e.preventDefault();
+    manualBoost = e.deltaY * 0.08;
+  }, { passive: false });
+</script>
+
+<article class="page">
+  <aside class="sidebar">
+    
+    <!-- Photo -->
+    <div class="photo-wrap">
+      {% if photo_exists and photo %}
+        <img src="{{ photo }}" alt="Photo">
+      {% else %}
+        <div class="photo-placeholder">{{ initials }}</div>
+      {% endif %}
+    </div>
+    
+    <!-- Name & Role -->
+    <div class="name-role">
+      <div class="name">{{ e(name) }}</div>
+      <div class="role">{{ e(title) }}</div>
+    </div>
+    
+    <hr>
+    
+    <!-- Contact -->
+    <section class="side-section contact">
+      <h3>CONTACT</h3>
+      <ul class="side-list">
+        {% if phone %}<li>{{ render_inline(phone) }}</li>{% endif %}
+        {% if email %}<li>{{ render_inline(email) }}</li>{% endif %}
+        {% if address %}<li>{{ render_html(address) }}</li>{% endif %}
+      </ul>
+    </section>
+    
+    <hr>
+    
+    <!-- Skills -->
+    <section class="side-section skills">
+      <h3>SKILLS</h3>
+      {% if skills %}
+      <ul class="side-list">
+        {% for s in skills %}<li>{{ e(s) }}</li>{% endfor %}
+      </ul>
+      {% else %}
+      <p class="muted">No skills</p>
+      {% endif %}
+    </section>
+    
+    <hr>
+    
+    <!-- Languages -->
+    <section class="side-section languages">
+      <h3>LANGUAGES</h3>
+      {% if languages %}
+      <ul class="side-list">
+        {% for l in languages %}<li>{{ e(l) }}</li>{% endfor %}
+      </ul>
+      {% else %}
+      <p class="muted">No languages</p>
+      {% endif %}
+    </section>
+    
+  </aside>
+  
+  <main class="content">
+    
+    <!-- Summary -->
+    <section class="section summary">
+      <h2>PROFESSIONAL SUMMARY</h2>
+      {% if summary %}
+      <div>{{ render_html(summary) }}</div>
+      {% else %}
+      <p class="muted">No profile summary</p>
+      {% endif %}
+    </section>
+    
+    <!-- Education -->
+    <section class="section education">
+      <h2>EDUCATION</h2>
+      {% if education %}
+      {% for ed in education %}
+      <div class="edu">
+        <div class="job-title">{{ ed.degree | e }}</div>
+        <div class="job-company">{{ ed.university | e }}</div>
+        {% if ed.year %}<div class="muted">{{ ed.year | e }}</div>{% endif %}
+      </div>
+      {% endfor %}
+      {% else %}
+      <p class="muted">No education provided</p>
+      {% endif %}
+    </section>
+    
+    <!-- Experience -->
+    <section class="section experience">
+      <h2>EXPERIENCE</h2>
+      {% if experience %}
+      {% for exp in experience %}
+      <div class="job">
+        <div class="job-title">{{ exp.title | e }}</div>
+        <div class="job-company">{{ exp.company | e }}</div>
+        <div class="muted">{{ exp.duration | e }}</div>
+        {% if exp.description %}
+          <div>{{ exp.description | nl2br | safe }}</div>
+        {% endif %}
+      </div>
+      {% endfor %}
+      {% else %}
+      <p class="muted">No experience provided</p>
+      {% endif %}
+    </section>
+    
+  </main>
+</article>
+
+<!-- Download PDF Button -->
+<button onclick="window.print()" class="btn"> </button>
+</body>
+</html>

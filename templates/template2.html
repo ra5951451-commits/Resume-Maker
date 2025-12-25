@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ e(data.name) if data.name else 'Resume' }} - Resume</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:400,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/template2.css') }}">
+</head>
+<body>
+
+<!-- Template Switch -->
+<div class="template-scroll">
+  <div class="template-track" id="track">
+
+    <!-- SET 1 -->
+    <a href="{{ url_for('template1') }}"><div class="template-thumb t1"></div></a>
+    <a href="{{ url_for('template3') }}"><div class="template-thumb t3"></div></a>
+    <a href="{{ url_for('template4') }}"><div class="template-thumb t4"></div></a>
+    <a href="{{ url_for('template5') }}"><div class="template-thumb t5"></div></a>
+    <a href="{{ url_for('template6') }}"><div class="template-thumb t6"></div></a>
+    <a href="{{ url_for('template7') }}"><div class="template-thumb t7"></div></a>
+    <a href="{{ url_for('template8') }}"><div class="template-thumb t8"></div></a>
+
+    <!-- DUPLICATE SET (required) -->
+    <a href="{{ url_for('template1') }}"><div class="template-thumb t1"></div></a>
+    <a href="{{ url_for('template3') }}"><div class="template-thumb t3"></div></a>
+    <a href="{{ url_for('template4') }}"><div class="template-thumb t4"></div></a>
+    <a href="{{ url_for('template5') }}"><div class="template-thumb t5"></div></a>
+    <a href="{{ url_for('template6') }}"><div class="template-thumb t6"></div></a>
+    <a href="{{ url_for('template7') }}"><div class="template-thumb t7"></div></a>
+    <a href="{{ url_for('template8') }}"><div class="template-thumb t8"></div></a>
+
+  </div>
+</div>
+
+</div>
+<script>
+  const track = document.getElementById('track');
+  let y = 0;
+  let speed = 0.4; // auto scroll speed
+  let manualBoost = 0;
+
+  function animate() {
+    y -= speed + manualBoost;
+
+    // infinite reset
+    if (Math.abs(y) >= track.scrollHeight / 2) {
+      y = 0;
+    }
+
+    track.style.transform = `translateY(${y}px)`;
+
+    // slowly return to auto speed
+    manualBoost *= 0.9;
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  // Mouse wheel control
+  document.querySelector('.template-scroll').addEventListener('wheel', e => {
+    e.preventDefault();
+    manualBoost = e.deltaY * 0.08;
+  }, { passive: false });
+</script>
+
+
+<div class="page" role="document" aria-label="Resume">
+    <header class="header">
+        <div class="photo">
+            {% if data.photo %}
+            <img src="{{ data.photo }}" alt="Photo">
+            {% else %}
+            <div class="photo-placeholder">{{ e(initials) }}</div>
+            {% endif %}
+        </div>
+        <div class="head-left">
+            <h1 class="name">{{ e(data.name) if data.name else 'Your Name' }}</h1>
+            <div class="title">{{ e(data.title) if data.title else 'Job Title' }}</div>
+        </div>
+    </header>
+    
+    <main class="body">
+        <aside class="sidebar">
+            <div class="block">
+                <div class="contact">
+                    <h4>CONTACT</h4>
+                    {% if data.email %}<div class="item">Email: {{ render_inline(data.email) }}</div>{% endif %}
+                    {% if data.phone %}<div class="item">Phone: {{ render_inline(data.phone) }}</div>{% endif %}
+                    {% if data.address %}<div class="item">Address: {{ render_html(data.address) }}</div>{% endif %}
+                </div>
+                <h4>SKILLS</h4>
+                <ul class="list">
+                    {% if data.skills %}
+                        {% for skill in data.skills %}
+                        <li>{{ e(skill) }}</li>
+                        {% endfor %}
+                    {% else %}
+                    <li>No skills added</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </aside>
+        
+        <section class="main">
+            <div class="section">
+                <h3>EDUCATION</h3>
+                {% if data.education %}
+                    {% for edu in data.education %}
+                    <div class="education-item">
+                        <div class="edu-years">{{ e(edu.year) if edu.year else '20XX' }}</div>
+                        <div class="edu-body">
+                            <div class="deg">{{ e(edu.degree) if edu.degree else 'Degree Name' }}</div>
+                            <div class="inst">{{ e(edu.university) if edu.university else 'School / University — Location' }}</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <div class="education-item">
+                    <div class="edu-years">20XX - 20XX</div>
+                    <div class="edu-body">
+                        <div class="deg">Degree Name</div>
+                        <div class="inst">School / University — Location</div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="section">
+                <h3>EXPERIENCE</h3>
+                {% if data.experience %}
+                    {% for exp in data.experience %}
+                    <div class="exp-item">
+                        <div class="exp-years">{{ e(exp.duration) if exp.duration else '20XX - 20XX' }}</div>
+                        <div class="exp-body">
+                            <div class="role">{{ e(exp.title) if exp.title else 'Job Title' }}</div>
+                            <div class="company">{{ e(exp.company) if exp.company else 'Company Name — Location' }}</div>
+                            {% if exp.description %}
+                            <div>{{ render_html(exp.description) }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                <div class="exp-item">
+                    <div class="exp-years">20XX - 20XX</div>
+                    <div class="exp-body">
+                        <div class="role">Job Title</div>
+                        <div class="company">Company Name — Location</div>
+                        <ul class="list">
+                            <li>Responsibility or achievement 1</li>
+                            <li>Responsibility or achievement 2</li>
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            
+            <div class="section">
+                <h3>PROFILE / ABOUT ME</h3>
+                {% if data.summary %}
+                <p style="font-size:13px;line-height:1.5;color:#333;">{{ render_html(data.summary) }}</p>
+                {% else %}
+                <p class="muted">No profile summary added</p>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+    
+    <div class="footer-strip"></div>
+</div>
+
+<!-- Download PDF Button -->
+<button onclick="window.print()" class="btn"></button>
+</body>
+</html>

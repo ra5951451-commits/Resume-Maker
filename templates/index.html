@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume Maker</title>
+    <link rel="stylesheet" href="/static/css/index.css"> 
+
+    <style>
+        .error-msg { color:#e74c3c; font-size:12px; display:none; margin-top:4px; }
+        .invalid   { border:1px solid #e74c3c !important; }
+        .top-bar   { display:flex; justify-content:space-between; padding:10px 40px; background:#f4f4f4; }
+        .form-container { max-width:600px; margin:20px auto; padding:20px; border:1px solid #ccc; border-radius:8px; }
+        .form-section { border:1px dashed #ddd; padding:15px; margin-bottom:20px; border-radius:6px; }
+        label { display:block; margin-top:10px; font-weight:bold; }
+        input, textarea, select { width:100%; padding:8px; margin:6px 0; }
+        .add-btn { background:#5cb85c; color:#fff; padding:8px 12px; border:none; border-radius:4px; cursor:pointer; }
+        button[type="submit"] { background:#007bff; color:#fff; padding:12px; width:100%; border:none; border-radius:4px; cursor:pointer; }
+    </style>
+</head>
+
+<body>
+<div class="top-bar">
+    <h3>Welcome, {{ user | e }} 👋</h3>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</div>
+
+<div class="form-container">
+<h2>Resume Maker</h2>
+
+<form id="resumeForm" action="{{ url_for('generate') }}" method="POST" enctype="multipart/form-data" novalidate>
+
+<!-- PERSONAL -->
+<div class="form-section">
+    <h3>👤 Personal Information</h3>
+
+    <label>Full Name *</label>
+    <input name="name" class="validate" required>
+    <div class="error-msg">Please enter your full name.</div>
+
+    <label>Job Title *</label>
+    <input name="title" class="validate" required>
+    <div class="error-msg">Please enter a job title.</div>
+
+    <label>Email *</label>
+    <input type="email" name="email" class="validate" required>
+    <div class="error-msg">Please enter a valid email.</div>
+
+    <label>Phone *</label>
+    <input name="phone" class="validate only-numbers" required>
+    <div class="error-msg">Please enter numbers only.</div>
+
+    <label>Address *</label>
+    <input name="address" class="validate" required>
+    <div class="error-msg">Please enter your address.</div>
+
+    <label>Photo</label>
+    <input type="file" name="photo" accept=".jpg,.jpeg,.png">
+</div>
+
+<!-- SUMMARY -->
+<div class="form-section">
+    <h3>📝 Summary</h3>
+    <textarea name="summary" class="validate"></textarea>
+</div>
+
+<!-- SKILLS -->
+<div class="form-section">
+    <h3>💡 Skills</h3>
+    <input name="skills" placeholder="HTML, CSS, Python" class="validate">
+</div>
+
+<!-- EXPERIENCE -->
+<div class="form-section">
+    <h3>💼 Experience</h3>
+    <div id="experience-wrapper">
+        <div class="exp-item">
+            <input name="experience_title[]" placeholder="Job Title" class="validate">
+            <input name="experience_company[]" placeholder="Company" class="validate">
+            <input name="experience_duration[]" placeholder="Duration" class="validate">
+            <textarea name="experience_description[]" placeholder="Description" class="validate"></textarea>
+            <hr>
+        </div>
+    </div>
+    <button type="button" class="add-btn" onclick="addExperience()">➕ Add Experience</button>
+</div>
+
+<!-- EDUCATION -->
+<div class="form-section">
+    <h3>🎓 Education</h3>
+    <div id="education-wrapper">
+        <div class="edu-item">
+            <input name="education_degree[]" placeholder="Degree" class="validate">
+            <input name="education_university[]" placeholder="University" class="validate">
+            <input name="education_year[]" placeholder="Year" class="validate only-numbers">
+            <hr>
+        </div>
+    </div>
+    <button type="button" class="add-btn" onclick="addEducation()">➕ Add Education</button>
+</div>
+
+<!-- LANGUAGES -->
+<div class="form-section">
+    <h3>🌐 Languages</h3>
+    <div id="language-wrapper">
+        <input name="languages[]" placeholder="English" class="validate">
+    </div>
+    <button type="button" class="add-btn" onclick="addLanguage()">➕ Add Language</button>
+</div>
+
+<!-- TEMPLATE -->
+<div class="form-section">
+    <h3>🎨 Choose Template *</h3>
+    <select name="template" required>
+        <option value="">Select Template</option>
+        <option value="template1">Template 1</option>
+        <option value="template2">Template 2</option>
+        <option value="template3">Template 3</option>
+        <option value="template4">Template 4</option>
+        <option value="template5">Template 5</option>
+        <option value="template6">Template 6</option>
+        <option value="template7">Template 7</option>
+        <option value="template8">Template 8</option>
+    </select>
+    <div class="error-msg">Please pick a template.</div>
+</div>
+
+<button type="submit">🚀 Generate Resume</button>
+</form>
+</div>
+
+<script>
+/* ----------- clones ----------- */
+function addExperience(){
+document.getElementById("experience-wrapper").insertAdjacentHTML("beforeend",
+`<div class="exp-item">
+<input name="experience_title[]" placeholder="Job Title" class="validate">
+<input name="experience_company[]" placeholder="Company" class="validate">
+<input name="experience_duration[]" placeholder="Duration" class="validate">
+<textarea name="experience_description[]" placeholder="Description" class="validate"></textarea>
+<hr></div>`);
+}
+
+function addEducation(){
+document.getElementById("education-wrapper").insertAdjacentHTML("beforeend",
+`<div class="edu-item">
+<input name="education_degree[]" placeholder="Degree" class="validate">
+<input name="education_university[]" placeholder="University" class="validate">
+<input name="education_year[]" placeholder="Year" class="validate only-numbers">
+<hr></div>`);
+}
+
+function addLanguage(){
+document.getElementById("language-wrapper").insertAdjacentHTML("beforeend",
+`<input name="languages[]" placeholder="Language" class="validate">`);
+}
+
+/* ----------- validation ----------- */
+document.getElementById('resumeForm').addEventListener('submit', function (e) {
+    let ok = true;
+
+    /* remove old highlights */
+    document.querySelectorAll('.invalid').forEach(el => el.classList.remove('invalid'));
+    document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+
+    /* required text fields */
+    document.querySelectorAll('input.validate[required], textarea.validate[required], select.validate[required]').forEach(function (inp) {
+        if (!inp.value.trim()) {
+            inp.classList.add('invalid');
+            inp.nextElementSibling.style.display = 'block';
+            ok = false;
+        }
+    });
+
+    /* email format */
+    const email = document.querySelector('input[type="email"]');
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+        email.classList.add('invalid');
+        email.nextElementSibling.style.display = 'block';
+        ok = false;
+    }
+
+    /* numbers-only fields */
+    document.querySelectorAll('.only-numbers').forEach(function (inp) {
+        if (inp.value && /\D/.test(inp.value)) {
+            inp.classList.add('invalid');
+            inp.nextElementSibling.style.display = 'block';
+            ok = false;
+        }
+    });
+
+    if (!ok) e.preventDefault();   // block submission
+});
+</script>
+</body>
+</html>

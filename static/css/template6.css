@@ -1,0 +1,284 @@
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(162, 170, 156);
+  color: #111;
+  /* center page on screen */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+/* ================= TEMPLATE THUMBNAILS ================= */
+:root {
+  --thumb-width: 110px;
+  --thumb-height: 130px;
+  --gap: 14px;
+}
+
+/* Container */
+.template-scroll {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  width: var(--thumb-width);
+  height: 90vh;
+  overflow: hidden;
+  z-index: 999;
+}
+
+/* Track */
+.template-track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  will-change: transform;
+}
+
+/* Thumbnails */
+.template-thumb {
+  width: var(--thumb-width);
+  height: var(--thumb-height);
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,.2);
+  transition: transform .25s ease;
+}
+
+.template-thumb:hover {
+  transform: scale(1.08);
+}
+
+/* Images */
+.t1 { background-image: url('../images/templateA.jpg'); }
+.t2 { background-image: url('../images/templateB.jpg'); }
+.t3 { background-image: url('../images/templateC.jpg'); }
+.t4 { background-image: url('../images/templateD.jpg'); }
+.t5 { background-image: url('../images/templateE.jpg'); }
+.t7 { background-image: url('../images/templateG.jpg'); }
+.t8 { background-image: url('../images/templateH.jpg'); }
+
+/* ================= PAGE ================= */
+/* Exact A4 size for screen & print */
+.page {
+  width: 210mm;
+  height: 297mm;
+  margin: 0 auto 20px;
+  background: #fff;
+  box-shadow: 0 0 18px rgba(0,0,0,.18);
+  overflow: hidden;
+  position: relative;
+  page-break-after: always;
+}
+
+/* ================= HEADER ================= */
+.sidebar {
+  background: #000;
+  color: #fff;
+  padding: 36px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-inner {
+  max-width: 60%;
+}
+
+/* PHOTO */
+.header-photo {
+  width: 38%;
+  display: flex;
+  justify-content: center;
+}
+
+.header-photo img,
+.photo-placeholder {
+  width: 150px;
+  height: 150px;
+  border: 1px solid #fff;
+  object-fit: cover;
+}
+
+.photo-placeholder {
+  background: #111;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* NAME / ROLE */
+.name-role .name {
+  font-size: 30px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.name-role .role {
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-top: 6px;
+  opacity: 0.85;
+  text-transform: uppercase;
+}
+
+/* CONTACT */
+.side-section {
+  margin-top: 22px;
+}
+
+.side-section h3 {
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.side-list {
+  list-style: none;
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+/* CONTENT */
+.content {
+  display: grid;
+  grid-template-columns: 65% 35%;
+  padding: 36px 40px;
+  position: relative;
+}
+
+.content::before {
+  content: "";
+  position: absolute;
+  left: 65%;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background: #ccc;
+}
+
+/* COLUMNS */
+.left-column {
+  padding-right: 30px;
+}
+
+.right-column {
+  padding-left: 30px;
+}
+
+/* SECTIONS */
+.section {
+  margin-bottom: 30px;
+}
+
+.section h2 {
+  font-size: 13px;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+
+/* TEXT */
+.section p,
+.job-desc {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.muted {
+  color: #777;
+}
+
+.job-title {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.job-company {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.job-meta {
+  font-size: 11px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+/* LISTS */
+.section ul {
+  list-style: none;
+}
+
+.section ul li {
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+/* PRINT / BUTTON */
+.btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 50px;
+  height: 50px;
+  background: url("/static/images/dowlode.png") center/cover no-repeat;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+/* ============== PRINT RULES ============== */
+/* Define page size and zero page margins */
+@page {
+  size: A4;
+  margin: 0;
+}
+
+/* print-specific adjustments */
+@media print {
+  /* hide UI elements that should not be printed */
+  .template-scroll,
+  .btn {
+    display: none !important;
+  }
+
+  /* remove page background & shadows that interfere with PDF output */
+  html, body {
+    background: none !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact; /* use when browser allows background printing */
+    print-color-adjust: exact;
+  }
+
+  .page {
+    box-shadow: none !important;
+    margin: 0 !important;
+    width: 210mm !important;
+    height: 297mm !important;
+    overflow: hidden !important;
+  }
+
+  /* avoid page breaks within important blocks */
+  .section, .section-block, .job-desc {
+    page-break-inside: avoid;
+  }
+}

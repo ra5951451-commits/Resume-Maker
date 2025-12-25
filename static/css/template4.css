@@ -1,0 +1,292 @@
+/* ===============================
+   ROOT VARIABLES
+=============================== */
+:root {
+  --primary: #000;
+  --muted: #555;
+
+  --page-width: 210mm;
+  --page-height: 297mm;
+  --page-padding: 16mm;
+
+  --thumb-width: 110px;
+  --thumb-height: 130px;
+  --gap: 14px;
+}
+
+/* ===============================
+   RESET
+=============================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===============================
+   BODY
+=============================== */
+html, body {
+  width: 100%;
+  min-height: 100%;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  color: #222;
+}
+
+body {
+  background-color: rgb(162, 170, 156);
+  background-attachment: fixed;
+}
+
+/* ===============================
+   TEMPLATE THUMBNAILS
+=============================== */
+.template-scroll {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  width: var(--thumb-width);
+  height: 90vh;
+  overflow: hidden;
+  z-index: 999;
+}
+
+.template-track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  will-change: transform;
+}
+
+.template-thumb {
+  width: var(--thumb-width);
+  height: var(--thumb-height);
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,.2);
+  transition: transform .25s ease;
+}
+
+.template-thumb:hover {
+  transform: scale(1.08);
+}
+
+/* Thumbnail images */
+.t1 { background-image: url('../images/templateA.jpg'); }
+.t2 { background-image: url('../images/templateB.jpg'); }
+.t3 { background-image: url('../images/templateC.jpg'); }
+.t5 { background-image: url('../images/templateE.jpg'); }
+.t6 { background-image: url('../images/templateF.jpg'); }
+.t7 { background-image: url('../images/templateG.jpg'); }
+.t8 { background-image: url('../images/templateH.jpg'); }
+
+/* ===============================
+   PAGE WRAPPER
+=============================== */
+.page-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 28px;
+}
+
+/* ===============================
+   RESUME CONTAINER (A4)
+=============================== */
+.container {
+  width: var(--page-width);
+  min-height: var(--page-height);
+  background: #fff;
+  padding: var(--page-padding);
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ===============================
+   HEADER (REFERENCE STYLE)
+=============================== */
+.header-ref {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.header-text h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 34px;
+  letter-spacing: 1px;
+}
+
+.job-title {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-size: 15px;
+  margin-top: 6px;
+}
+
+.summary {
+  max-width: 520px;
+  margin: 12px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.contact-row {
+  display: flex;
+  gap: 24px;
+  font-size: 12px;
+}
+
+/* Profile photo */
+.header-photo img,
+.photo-placeholder {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Divider */
+.top-divider {
+  border: none;
+  border-top: 2px solid #000;
+  margin: 18px 0;
+}
+
+/* ===============================
+   SECTIONS
+=============================== */
+.block {
+  margin-bottom: 22px;
+}
+
+.label {
+  background: #eee;
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+/* ===============================
+   LANGUAGES (PROGRESS BARS)
+=============================== */
+.lang-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.lang-row span {
+  width: 80px;
+  font-size: 13px;
+}
+
+.bar {
+  width: 160px;
+  height: 6px;
+  background: #ddd;
+}
+
+.bar i {
+  display: block;
+  height: 100%;
+  background: #000;
+}
+
+/* ===============================
+   TWO COLUMN ROWS
+=============================== */
+.two-col {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 10px;
+}
+
+.date-col {
+  width: 120px;
+  font-size: 11px;
+  color: #555;
+}
+
+/* ===============================
+   EXPERIENCE
+=============================== */
+.job-block ul {
+  margin-left: 144px;
+  font-size: 13px;
+}
+
+.job-block li {
+  margin-bottom: 6px;
+}
+
+/* ===============================
+   DOWNLOAD BUTTON
+=============================== */
+.btn {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 52px;
+  height: 52px;
+  background: url("/static/images/dowlode.png") center/cover no-repeat;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  z-index: 20;
+}
+
+/* ===============================
+   RESPONSIVE
+=============================== */
+@media (max-width: 900px) {
+  .template-scroll {
+    display: none;
+  }
+}
+
+/* ===============================
+   PRINT / PDF
+=============================== */
+@media print {
+  html, body {
+    background: #fff;
+  }
+
+  .page-wrap {
+    padding: 0;
+  }
+
+  .container {
+    box-shadow: none;
+    border: none;
+    width: auto;
+    min-height: auto;
+  }
+
+  .template-scroll,
+  .btn {
+    display: none !important;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin: 0mm;
+}

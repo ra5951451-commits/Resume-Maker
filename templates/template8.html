@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Resume — {{ e(name) }}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/template8.css') }}">
+</head>
+
+<body>
+
+<!-- ================= TEMPLATE SWITCH ================= -->
+<div class="template-scroll">
+  <div class="template-track" id="track">
+
+    <!-- SET 1 -->
+    <a href="{{ url_for('template1') }}"><div class="template-thumb t1"></div></a>
+    <a href="{{ url_for('template2') }}"><div class="template-thumb t2"></div></a>
+    <a href="{{ url_for('template3') }}"><div class="template-thumb t3"></div></a>
+    <a href="{{ url_for('template4') }}"><div class="template-thumb t4"></div></a>
+    <a href="{{ url_for('template5') }}"><div class="template-thumb t5"></div></a>
+    <a href="{{ url_for('template6') }}"><div class="template-thumb t6"></div></a>
+    <a href="{{ url_for('template7') }}"><div class="template-thumb t7"></div></a>
+
+    <!-- DUPLICATE SET (required) -->
+    <a href="{{ url_for('template1') }}"><div class="template-thumb t1"></div></a>
+    <a href="{{ url_for('template2') }}"><div class="template-thumb t2"></div></a>
+    <a href="{{ url_for('template3') }}"><div class="template-thumb t3"></div></a>
+    <a href="{{ url_for('template4') }}"><div class="template-thumb t4"></div></a>
+    <a href="{{ url_for('template5') }}"><div class="template-thumb t5"></div></a>
+    <a href="{{ url_for('template6') }}"><div class="template-thumb t6"></div></a>
+    <a href="{{ url_for('template7') }}"><div class="template-thumb t7"></div></a>
+
+  </div>
+</div>
+
+</div>
+<script>
+  const track = document.getElementById('track');
+  let y = 0;
+  let speed = 0.4; // auto scroll speed
+  let manualBoost = 0;
+
+  function animate() {
+    y -= speed + manualBoost;
+
+    // infinite reset
+    if (Math.abs(y) >= track.scrollHeight / 2) {
+      y = 0;
+    }
+
+    track.style.transform = `translateY(${y}px)`;
+
+    // slowly return to auto speed
+    manualBoost *= 0.9;
+
+    // Mouse wheel contro2
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+
+  document.querySelector('.template-scroll').addEventListener('wheel', e => {
+    e.preventDefault();
+    manualBoost = e.deltaY * 0.08;
+  }, { passive: false });
+</script>
+
+
+<!-- ================= RESUME MAIN ================= -->
+<main class="resume">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-left">
+      <h1>{{ e(name) }}</h1>
+      <p>{{ e(title) }}</p>
+      <div class="contact">
+        {% if address %}<span>{{ address }}</span>{% endif %}
+        {% if phone %}<span>{{ phone }}</span>{% endif %}
+        {% if email %}<span>{{ email }}</span>{% endif %}
+        {% if website %}<span>{{ website }}</span>{% endif %}
+      </div>
+    </div>
+
+    <div class="header-right">
+      {% if photo %}
+        <img src="{{ photo }}" alt="Photo">
+      {% else %}
+        <div class="photo-placeholder">{{ initials }}</div>
+      {% endif %}
+    </div>
+  </header>
+
+  <!-- ================= GRID ================= -->
+  <section class="grid">
+
+    <!-- LEFT COLUMN -->
+    <div class="left">
+
+      {% if summary %}
+      <div class="section">
+        <div class="section-title">Resume Summary</div>
+        {{ render_html(summary) }}
+      </div>
+      {% endif %}
+
+      {% if experience %}
+      <div class="section">
+        <div class="section-title">Work Experience</div>
+        {% for exp in experience %}
+        <div class="item">
+          {% if exp.duration %}<span class="date">{{ exp.duration }}</span>{% endif %}
+          <h3>{{ exp.title }}</h3>
+          <strong>{{ exp.company }}</strong>
+          <p>{{ exp.description }}</p>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if education %}
+      <div class="section">
+        <div class="section-title">Education</div>
+        {% for ed in education %}
+        <div class="item">
+          {% if ed.year %}<span class="date">{{ ed.year }}</span>{% endif %}
+          <h3>{{ ed.degree }}</h3>
+          <strong>{{ ed.university }}</strong>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="right">
+
+      {% if skills %}
+      <div class="section">
+        <div class="section-title">Skills</div>
+        {% for s in skills %}
+        <div class="skill" style="--level: {{ s.level }}%">
+          <span>{{ s.name }}</span>
+          <div class="bar">
+            <div ></div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% if strengths %}
+      <div class="section">
+        <div class="section-title">Core Strengths</div>
+        <div class="circles">
+          {% for c in strengths %}
+          <div class="circle">
+            <strong>{{ c.value }}</strong>
+            <span>{{ c.name }}</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if references %}
+      <div class="section">
+        <div class="section-title">References</div>
+        <p>{{ references }}</p>
+      </div>
+      {% endif %}
+
+    </div>
+
+  </section>
+
+</main>
+
+<!-- ================= PRINT BUTTON ================= -->
+<button class="btn" onclick="window.print()"></button>
+
+</body>
+</html>

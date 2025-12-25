@@ -1,0 +1,144 @@
+/* ==========================
+   Full-page Background
+========================== */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: url('../images/mountain.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+/* ==========================
+   Glassmorphic Box
+========================== */
+.box {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    padding: 35px 30px;
+    width: 360px;
+    max-width: 100%;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    text-align: center;
+    color: #fff;
+}
+
+/* ==========================
+   Headings
+========================== */
+.box h2 {
+    margin-bottom: 25px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+/* ==========================
+   Input Fields
+========================== */
+input {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 12px 0;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    font-size: 15px;
+    transition: 0.3s;
+    backdrop-filter: blur(4px);
+}
+
+input::placeholder {
+    color: rgba(240, 240, 240, 0.9);
+}
+
+input:focus {
+    background: rgba(255, 255, 255, 0.35);
+    outline: none;
+    border: 1px solid rgba(52, 152, 219, 0.6);
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.6);
+}
+
+/* ==========================
+   Buttons
+========================== */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 15px;
+    transition: 0.3s;
+    box-shadow: 0 4px 15px rgba(41, 128, 185, 0.4);
+}
+
+button:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+button:focus {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+/* ==========================
+   Error Messages
+========================== */
+.error {
+    color: #ff6b6b;
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+}
+
+/* ==========================
+   Links
+========================== */
+a {
+    color: #ffd86b;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+a:hover {
+    color: #ffe27a;
+    text-decoration: underline;
+}
+
+/* ==========================
+   Responsive Adjustments
+========================== */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .box {
+        width: 100%;
+        padding: 25px 20px;
+    }
+
+    .box h2 {
+        font-size: 22px;
+    }
+
+    button {
+        font-size: 15px;
+    }
+}

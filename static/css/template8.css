@@ -1,0 +1,277 @@
+/* ================= RESET & BASE ================= */
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: rgb(162, 170, 156);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+/* ================= RESUME (A4) ================= */
+.resume {
+  width: 210mm;
+  height: 297mm;
+  margin: 0 auto;
+  background: #e9e6e2;
+  padding: 30px;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  page-break-after: always;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 34px;
+}
+
+.header p {
+  margin: 5px 0;
+  font-weight: 500;
+}
+
+.contact span {
+  display: block;
+  font-size: 13px;
+  color: #333;
+}
+
+.header-right img,
+.photo-placeholder {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #333;
+  object-fit: cover;
+}
+
+.photo-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  background: #cfcfcf;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  gap: 25px;
+  margin-top: 30px;
+}
+
+/* SECTIONS */
+.section {
+  margin-bottom: 25px;
+}
+
+.section-title {
+  background: #f2f2f2;
+  border: 2px solid #333;
+  border-radius: 30px;
+  padding: 6px 15px;
+  display: inline-block;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* ITEMS */
+.item {
+  margin-bottom: 15px;
+}
+
+.item h3 {
+  margin: 3px 0;
+  font-size: 16px;
+}
+
+.item strong {
+  font-size: 14px;
+}
+
+.date {
+  font-size: 12px;
+  color: #555;
+}
+
+/* SKILLS */
+.skill {
+  margin-bottom: 12px;
+}
+
+.skill span {
+  font-size: 14px;
+}
+
+.bar {
+  background: #cfcfcf;
+  height: 6px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.bar div {
+  height: 100%;
+  width: var(--level, 50%); /* uses inline --level value */
+  background: #333;
+  transition: width 0.5s ease;
+}
+
+/* CIRCLES */
+.circles {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.circle {
+  width: 70px;
+  height: 70px;
+  border: 2px solid #333;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 12px;
+  background: transparent;
+}
+
+.circle strong {
+  display: block;
+  font-size: 18px;
+}
+
+.circle span {
+  font-size: 11px;
+}
+
+/* PRINT BUTTON */
+.btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 50px;
+  height: 50px;
+  background: url("/static/images/dowlode.png") center/cover no-repeat;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+  cursor: pointer;
+  z-index: 2000;
+}
+
+/* ================= TEMPLATE THUMBNAILS (UI) ================= */
+:root {
+  --thumb-width: 110px;
+  --thumb-height: 130px;
+  --gap: 14px;
+}
+
+.template-scroll {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  width: var(--thumb-width);
+  height: 90vh;
+  overflow: hidden;
+  z-index: 999;
+}
+
+.template-track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  will-change: transform;
+}
+
+.template-thumb {
+  width: var(--thumb-width);
+  height: var(--thumb-height);
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,.2);
+  transition: transform .25s ease;
+}
+
+.template-thumb:hover {
+  transform: scale(1.08);
+}
+
+/* Thumbnail images (example paths) */
+.t1 { background-image: url('../images/templateA.jpg'); }
+.t2 { background-image: url('../images/templateB.jpg'); }
+.t3 { background-image: url('../images/templateC.jpg'); }
+.t4 { background-image: url('../images/templateD.jpg'); }
+.t5 { background-image: url('../images/templateE.jpg'); }
+.t6 { background-image: url('../images/templateF.jpg'); }
+.t7 { background-image: url('../images/templateG.jpg'); }
+
+/* ================= PRINT RULES (A4) ================= */
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+
+  /* hide UI elements */
+  .template-scroll,
+  .btn {
+    display: none !important;
+  }
+
+  /* Ask browser to include background colors (user must enable background graphics) */
+  html, body {
+    background: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Force resume to exact A4, remove shadows/rounded corners for printer */
+  .resume {
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 !important;
+    padding: 20mm !important; /* keep inner padding in mm for predictable layout */
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+    page-break-after: always;
+  }
+
+  /* avoid breaking important blocks across pages */
+  .section,
+  .item,
+  .grid,
+  .circles {
+    page-break-inside: avoid;
+  }
+
+  /* ensure skill bars render full width as set */
+  .bar div {
+    background: #333 !important;
+  }
+}

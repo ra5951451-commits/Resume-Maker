@@ -1,0 +1,9 @@
+[
+  {
+    "id": "1a00ca3e680f4940990a32fac8792596",
+    "name": "Akshay",
+    "email": "ra.5951451@gmail.com",
+    "password": "scrypt:32768:8:1$SJLYbfsoMxT0bGl1$4a4aca089f7ad337bac740159ece337fca30cd9c9150b4c0b7033a635937889c5345be412b767fff711e9042e20454a216cdc0cfaac9947edc38a115863318f0",
+    "created_at": "2025-12-23T14:05:09.437145Z"
+  }
+]

@@ -1,0 +1,292 @@
+/* ================= RESET & BASE ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: "Poppins", "Segoe UI", sans-serif;
+  background-color: rgb(162, 170, 156);
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+/* ================= PAGE (A4) ================= */
+.page {
+  width: 210mm;
+  height: 297mm;
+  margin: 0 auto;
+  display: flex;
+  background: #fff;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  position: relative;
+  overflow: hidden;
+  page-break-after: always;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+  width: 28%;
+  background: #1f1f1f;
+  color: #ccc;
+  padding: 50px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.photo-wrap {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 25px;
+}
+
+.photo-wrap img,
+.photo-placeholder {
+  width: 150px;
+  height: 150px;
+  /* border-radius: 50%; */
+  background: #444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  font-weight: 700;
+  color: #fff;
+  object-fit: cover;
+}
+
+.side-section {
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.side-section h3 {
+  font-size: 12px;
+  color: #F7941D;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.side-list {
+  list-style: none;
+  width: 100%;
+}
+
+.side-list li {
+  font-size: 12px;
+  line-height: 1.6;
+  margin-bottom: 6px;
+  color: #ccc;
+}
+
+/* Language bars */
+.lang-bar {
+  width: 100%;
+  background: #333;
+  height: 6px;
+  border-radius: 3px;
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+.lang-level {
+  height: 100%;
+  background: #F7941D;
+  border-radius: 3px;
+}
+
+.sidebar hr {
+  border: none;
+  border-top: 1px solid #333;
+  margin: 20px 0;
+}
+
+/* ================= RIGHT CONTENT ================= */
+.content {
+  width: 72%;
+  padding: 100px 40px 40px 40px;
+  position: relative;
+}
+
+/* Header strip */
+.header-strip {
+  width: 100%;
+  height: 100px;
+  background: #F7941D;
+  position: absolute;
+  top: 30px;
+  left: 0;
+}
+
+.name-banner {
+  position: absolute;
+  bottom: 20px;
+  left: 40px;
+  color: #fff;
+}
+
+.name-banner .name {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.name-banner .role {
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ================= SECTIONS ================= */
+.section {
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.section h2 {
+  font-size: 14px;
+  color: #F7941D;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.section p,
+.section div {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.edu,
+.job {
+  margin-bottom: 15px;
+}
+
+.job-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+}
+
+.job-company {
+  font-size: 13px;
+  color: #555;
+}
+
+.muted {
+  font-size: 12px;
+  color: #888;
+}
+
+/* ================= PRINT BUTTON ================= */
+.btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 50px;
+  height: 50px;
+  background: url("/static/images/dowlode.png") center/cover no-repeat;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+
+/* ================= TEMPLATE THUMBNAILS ================= */
+:root {
+  --thumb-width: 110px;
+  --thumb-height: 130px;
+  --gap: 14px;
+}
+
+.template-scroll {
+  position: fixed;
+  left: 20px;
+  top: 20px;
+  width: var(--thumb-width);
+  height: 90vh;
+  overflow: hidden;
+  z-index: 999;
+}
+
+.template-track {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.template-thumb {
+  width: var(--thumb-width);
+  height: var(--thumb-height);
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0,0,0,.2);
+  transition: transform .25s ease;
+}
+
+.template-thumb:hover {
+  transform: scale(1.08);
+}
+
+/* Images */
+.t1 { background-image: url('../images/templateA.jpg'); }
+.t2 { background-image: url('../images/templateB.jpg'); }
+.t3 { background-image: url('../images/templateC.jpg'); }
+.t4 { background-image: url('../images/templateD.jpg'); }
+.t5 { background-image: url('../images/templateE.jpg'); }
+.t6 { background-image: url('../images/templateF.jpg'); }
+.t8 { background-image: url('../images/templateH.jpg'); }
+
+/* ================= PRINT SETTINGS ================= */
+
+/* A4 size with no margins */
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+
+  /* Hide UI elements */
+  .template-scroll,
+  .btn {
+    display: none !important;
+  }
+
+  html, body {
+    background: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    overflow: hidden !important;
+  }
+
+  /* Prevent content breaking */
+  .section,
+  .job,
+  .edu {
+    page-break-inside: avoid;
+  }
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Maker | Elevate Your Career</title>
+    <meta name="description" content="Professional AI-driven resume builder for students. Create, customize, and download resumes in minutes.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- use Flask static path -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+
+</head>
+<body>
+
+<header class="top-bar">
+    <div class="logo"></div>
+    <div class="site-title"><div class="componyname"></div><p>  Resume</p><span>Maker</span></div>
+    <nav>
+        <a href="{{ url_for('login') }}" class="nav-link">Login</a>
+        <a href="{{ url_for('signup') }}" class="nav-btn">Get Started</a>
+    </nav>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="hero-container">
+            <h1>Land Your Dream Job with a <span>Professional Resume</span></h1>
+            <p>Create high-impact, ATS-friendly resumes in minutes. Designed by students for the next generation of professionals.</p>
+            <div class="hero-actions">
+                <a href="{{ url_for('signup') }}" class="cta-primary">Build My Resume Now</a>
+                <a href="#templates" class="cta-secondary">View Templates</a>
+            </div>
+            <div class="hero-badge">8+ Premium Templates • No Credit Card • 100% Free</div>
+        </div>
+    </section>
+
+    <section id="templates" class="template-showcase">
+        <div class="section-header">
+            <h2>Modern Templates for Every Industry</h2>
+            <p>Select a layout and customize it to match your personal brand.</p>
+        </div>
+
+        <div class="scroll-wrapper">
+            <div class="scroll-track" id="track">
+                <a href="{{ url_for('template1') }}" class="template-item t1"><span>Executive</span></a>
+                <a href="{{ url_for('template2') }}" class="template-item t2"><span>Modern</span></a>
+                <a href="{{ url_for('template3') }}" class="template-item t3"><span>Creative</span></a>
+                <a href="{{ url_for('template4') }}" class="template-item t4"><span>Minimalist</span></a>
+                <a href="{{ url_for('template5') }}" class="template-item t5"><span>Academic</span></a>
+                <a href="{{ url_for('template6') }}" class="template-item t6"><span>Professional</span></a>
+                <a href="{{ url_for('template7') }}" class="template-item t7"><span>Classic</span></a>
+                <a href="{{ url_for('template8') }}" class="template-item t8"><span>Compact</span></a>
+                <a href="{{ url_for('template1') }}" class="template-item t1"><span>Executive</span></a>
+                <a href="{{ url_for('template2') }}" class="template-item t2"><span>Modern</span></a>
+                <a href="{{ url_for('template3') }}" class="template-item t3"><span>Creative</span></a>
+                <a href="{{ url_for('template4') }}" class="template-item t4"><span>Minimalist</span></a>
+            </div>
+        </div>
+    </section>
+
+    <section class="info">
+        <div class="info-container">
+            <div class="info-content">
+                <span class="label">Project Overview</span>
+                <h2>Bridging the gap between <span>Education and Employment</span></h2>
+                <p>This platform was developed as a comprehensive <strong>Academic Capstone Project</strong> to solve a common problem: building a professional resume shouldn't be difficult or expensive.</p>
+                <p>Our system integrates a seamless <strong>Live Preview</strong> engine with a <strong>one-click PDF generator</strong>, ensuring your data is formatted perfectly for modern hiring systems (ATS).</p>
+                
+                <div class="tech-stack">
+                    <div class="tech-item"><strong>Frontend:</strong> HTML5, CSS3, JS</div>
+                    <div class="tech-item"><strong>Backend:</strong> Python Flask</div>
+                    <div class="tech-item"><strong>Database:</strong> SQLite/PostgreSQL</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-top">
+        <div class="dev-team">
+            <h3>Development Team</h3>
+            <ul>
+                <li>Akshaysinh K. Rajput</li>
+                <li>Yash D. Bhatt</li>
+                <li>Aditya B. Joshi</li>
+            </ul>
+        </div>
+        <div class="institution">
+            <p>Wisaxis Private Ltd, Mehsana</p>
+            <p class="contact">📞: +1 (412) 203-2191</p>
+            <a href="https://mail.google.com/mail/u/0/#inbox?compose=GTvVlcSKjsgLrBGhBKZtJXRTrwbZtTxjLDQCJPKfJxJDSxKrBJwhwPJRllzTxRJPLzpqMPxlbHDNq"><p class="contact">✉️: info@wisaxis.com</p></a>
+            <p class="copyright">© 2026 Wisaxis Resume Maker </p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const track = document.getElementById('track');
+    let x = 0;
+    let speed = 0.5;
+
+    function animate() {
+        x -= speed;
+        const limit = track.scrollWidth / 2;
+        if (Math.abs(x) >= limit) x = 0;
+        track.style.transform = `translateX(${x}px)`;
+        requestAnimationFrame(animate);
+    }
+
+    track.addEventListener('mouseenter', () => speed = 0);
+    track.addEventListener('mouseleave', () => speed = 0.5);
+    animate();
+</script>
+
+</body>
+</html>
